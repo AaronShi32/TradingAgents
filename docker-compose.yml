@@ -7,6 +7,16 @@ services:
       - tradingagents_data:/home/appuser/.tradingagents
     tty: true
     stdin_open: true
+    user: "1000:1000"
+
+  daily-report:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - tradingagents_data:/home/appuser/.tradingagents
+    entrypoint: ["bash", "/home/appuser/app/scripts/daily_report_entrypoint.sh"]
+    restart: unless-stopped
 
   ollama:
     image: ollama/ollama:latest

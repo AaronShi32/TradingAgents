@@ -18,8 +18,13 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 COPY --from=builder /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-RUN useradd --create-home appuser
-USER appuser
+# Install cron for scheduled tasks
+RUN apt-get update && apt-get install -y --no-install-recommends cron \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN useradd --create-home appuser \
+    && mkdir -p /home/appuser/.tradingagents/cache /home/appuser/.tradingagents/memory /home/appuser/.tradingagents/logs \
+    && chown -R appuser:appuser /home/appuser/.tradingagents
 WORKDIR /home/appuser/app
 
 COPY --from=builder --chown=appuser:appuser /build .

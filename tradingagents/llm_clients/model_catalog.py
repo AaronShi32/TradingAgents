@@ -114,6 +114,32 @@ MODEL_OPTIONS: ProviderModeOptions = {
             ("Qwen3:latest (8B, local)", "qwen3:latest"),
         ],
     },
+    "github": {
+        "quick": [
+            ("GPT-4o Mini - Fast, affordable", "gpt-4o-mini"),
+            ("GPT-4o - Multimodal flagship", "gpt-4o"),
+            ("Meta Llama 3.1 8B - Lightweight open-source", "Meta-Llama-3.1-8B-Instruct"),
+        ],
+        "deep": [
+            ("GPT-4o - Multimodal flagship", "gpt-4o"),
+            ("Meta Llama 3.1 405B - Largest open-source", "Meta-Llama-3.1-405B-Instruct"),
+            ("GPT-4o Mini - Fast, affordable", "gpt-4o-mini"),
+        ],
+    },
+    "copilot": {
+        "quick": [
+            ("GPT-5.4 Mini - Fast, strong coding", "gpt-5.4-mini"),
+            ("GPT-4o Mini - Affordable", "gpt-4o-mini"),
+            ("Claude Sonnet 4.6 - Speed + intelligence", "claude-sonnet-4.6"),
+            ("Gemini 3 Flash - Fast", "gemini-3-flash-preview"),
+        ],
+        "deep": [
+            ("Claude Opus 4.7 - Most capable", "claude-opus-4.7"),
+            ("GPT-5.4 - Latest frontier", "gpt-5.4"),
+            ("Claude Opus 4.6 - Intelligent agents", "claude-opus-4.6"),
+            ("Gemini 3.1 Pro - Reasoning-first", "gemini-3.1-pro-preview"),
+        ],
+    },
 }
 
 
