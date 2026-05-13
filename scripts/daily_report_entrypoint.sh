@@ -11,15 +11,15 @@
 set -e
 
 # Write environment variables to a file so cron can access them
-printenv | grep -E "^(GITHUB_COPILOT_TOKEN|OPENAI_API_KEY|ALPHA_VANTAGE_API_KEY|FEISHU_WEBHOOK_URL|TRADINGAGENTS_)" > /tmp/env.sh 2>/dev/null || true
+printenv | grep -E "^(GITHUB_COPILOT_TOKEN|OPENAI_API_KEY|ALPHA_VANTAGE_API_KEY|FEISHU_WEBHOOK_URL|TRADINGAGENTS_|PATH=)" > /tmp/env.sh 2>/dev/null || true
 sed -i 's/^/export /' /tmp/env.sh
 
 # Create cron schedule
 # Pre-market: 9:15 AM ET = 13:15 UTC (Mon-Fri)
 # Post-market: 4:15 PM ET = 20:15 UTC (Mon-Fri)
 cat > /tmp/crontab << 'EOF'
-15 13 * * 1-5 . /tmp/env.sh && cd /home/appuser/app && python daily_report.py >> /tmp/daily_report.log 2>&1
-15 20 * * 1-5 . /tmp/env.sh && cd /home/appuser/app && python daily_report.py >> /tmp/daily_report.log 2>&1
+15 13 * * 1-5 . /tmp/env.sh && cd /home/appuser/app && /opt/venv/bin/python3 daily_report.py >> /tmp/daily_report.log 2>&1
+15 20 * * 1-5 . /tmp/env.sh && cd /home/appuser/app && /opt/venv/bin/python3 daily_report.py >> /tmp/daily_report.log 2>&1
 EOF
 
 echo "=== TradingAgents Daily Report Scheduler ==="
@@ -27,7 +27,7 @@ echo "Schedule (UTC):"
 echo "  Pre-market:  13:15 UTC / 21:15 Beijing / 9:15 AM ET (Mon-Fri)"
 echo "  Post-market: 20:15 UTC / 04:15 Beijing / 4:15 PM ET (Mon-Fri)"
 echo ""
-echo "Manual trigger: docker compose exec daily-report python daily_report.py"
+echo "Manual trigger: docker compose exec daily-report python3 daily_report.py"
 echo "View logs:      docker compose exec daily-report cat /tmp/daily_report.log"
 echo "============================================="
 
